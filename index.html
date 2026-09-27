@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emily & Michael - Wedding Website</title>
+    <!-- Elegant Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary-color: #4a5d4e;
+            --text-color: #333;
+            --bg-light: #f9f9f9;
+            --font-heading: 'Great Vibes', cursive;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Elegant dark gradient background for the empty space */
+            background: radial-gradient(circle at center, #2a2a2a 0%, #0a0a0a 100%);
+        }
+
+        /* Main 9:16 video preserved in original size */
+        .hero-main-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Keeps the 9:16 aspect ratio intact without stretching */
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.15); /* Very slight darkening for text readability */
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        /* --- VENUE SECTION (PARALLAX) --- */
+        #venue {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9e5df; /* Fallback color */
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            pointer-events: none;
+        }
+
+        /* Layering order requested: venuebg1 (back), venueimg (mid), sideflowers (front) */
+        .layer-bg {
+            background-image: url('assets/venuebg1.png');
+            z-index: 1;
+        }
+
+        .layer-img {
+            background-image: url('assets/venueimg.png');
+            z-index: 2;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+        }
+
+        .layer-flowers {
+            background-image: url('assets/sideflowers.png');
+            z-index: 3;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom left; /* Adjust based on your image */
+        }
+
+        .venue-details {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .venue-details h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .venue-details p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- COUNTDOWN SECTION --- */
+        #countdown {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        #countdown h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            min-width: 120px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 3rem;
+            font-weight: 600;
+        }
+
+        .time-box p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- EVENTS SECTION --- */
+        #events {
+            padding: 80px 20px;
+            background-color: var(--bg-light);
+            text-align: center;
+        }
+
+        #events h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .event-card .time {
+            font-weight: 600;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        /* --- GALLERY SECTION --- */
+        #gallery {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        #gallery h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-grid img:hover {
+            opacity: 0.8;
+        }
+
+        /* --- RSVP SECTION --- */
+        #rsvp {
+            padding: 80px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+
+        #rsvp h2 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+        }
+
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        .rsvp-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #d4af37; /* Gold accent */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .rsvp-btn:hover {
+            background-color: #c19b2e;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #222;
+            color: #aaa;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 4rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .venue-details h2 { font-size: 2.5rem; }
+            .venue-details { margin: 20px; padding: 20px; }
+            .time-box span { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <!-- Main 9:16 video preserved in original size, single instance for performance -->
+        <video autoplay loop muted playsinline class="hero-main-video">
+            <!-- Recommend renaming this file to remove spaces and parentheses -->
+            <source src="assets/birdbutterflyVd.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1>Emily & Michael</h1>
+            <p>September 20, 2025</p>
+        </div>
+    </section>
+
+    <!-- VENUE SECTION (PARALLAX) -->
+    <section id="venue">
+        <!-- Layered Parallax Elements -->
+        <div class="parallax-layer layer-bg"></div>
+        <div class="parallax-layer layer-img"></div>
+        <div class="parallax-layer layer-flowers"></div>
+        
+        <div class="venue-details">
+            <h2>The Venue</h2>
+            <p><strong>Rosewood Estates</strong></p>
+            <p>123 Blossom Lane, Napa Valley, CA</p>
+            <p>Join us for a magical evening surrounded by nature and love. The ceremony will begin promptly at 4:00 PM, followed by a cocktail hour and reception.</p>
+        </div>
+    </section>
+
+    <!-- COUNTDOWN SECTION -->
+    <section id="countdown">
+        <h2>Counting Down to Forever</h2>
+        <div class="countdown-timer" id="timer">
+            <div class="time-box">
+                <span id="days">00</span>
+                <p>Days</p>
+            </div>
+            <div class="time-box">
+                <span id="hours">00</span>
+                <p>Hours</p>
+            </div>
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WEDDING EVENTS SECTION -->
+    <section id="events">
+        <h2>Wedding Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <h3>The Ceremony</h3>
+                <p class="time">4:00 PM - 4:45 PM</p>
+                <p>Join us as we exchange vows in the garden pavilion. Please arrive 15 minutes early.</p>
+            </div>
+            <div class="event-card">
+                <h3>Cocktail Hour</h3>
+                <p class="time">5:00 PM - 6:00 PM</p>
+                <p>Enjoy drinks and hors d'oeuvres on the terrace while we take photos.</p>
+            </div>
+            <div class="event-card">
+                <h3>Reception</h3>
+                <p class="time">6:00 PM - 11:00 PM</p>
+                <p>Dinner, dancing, and celebration in the grand ballroom.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery">
+        <h2>Our Moments</h2>
+        <div class="gallery-grid">
+            <!-- Using placeholders. Replace src with your actual gallery images. -->
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="Gallery Image 1">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80" alt="Gallery Image 2">
+            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=500&q=80" alt="Gallery Image 3">
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=500&q=80" alt="Gallery Image 4">
+        </div>
+    </section>
+
+    <!-- RSVP SECTION -->
+    <section id="rsvp">
+        <h2>RSVP</h2>
+        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Thank you for your RSVP!');">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+                <label for="attendance">Will you be attending?</label>
+                <select id="attendance" required>
+                    <option value="">Select an option</option>
+                    <option value="yes">Joyfully Accept</option>
+                    <option value="no">Regretfully Decline</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="guests">Number of Guests (including yourself)</label>
+                <input type="number" id="guests" min="1" max="5" value="1">
+            </div>
+            <button type="submit" class="rsvp-btn">Send RSVP</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Emily & Michael's Wedding</p>
+        <p>&copy; 2025. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- COUNTDOWN TIMER ---
+        // Set the date we're counting down to (Change this to your wedding date)
+        const countdownDate = new Date("Sep 20, 2025 16:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            // If the countdown is over
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerHTML = "<h3>We are married!</h3>";
+            }
+        }, 1000);
+
+        // --- PARALLAX EFFECT ---
+        window.addEventListener('scroll', function() {
+            const venueSection = document.getElementById('venue');
+            const sectionTop = venueSection.offsetTop;
+            const scrollPosition = window.pageYOffset;
+            
+            // Only run parallax when the venue section is in view
+            if (scrollPosition > sectionTop - window.innerHeight && scrollPosition < sectionTop + venueSection.offsetHeight) {
+                const relativeScroll = scrollPosition - sectionTop;
+                
+                // Move layers at different speeds to create depth
+                // Background moves slowest, foreground moves fastest
+                document.querySelector('.layer-bg').style.transform = `translateY(${relativeScroll * 0.1}px)`;
+                document.querySelector('.layer-img').style.transform = `translateY(${relativeScroll * 0.3}px)`;
+                document.querySelector('.layer-flowers').style.transform = `translateY(${relativeScroll * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
